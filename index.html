@@ -11,6 +11,7 @@
 </head>
 <body>
   <div class="stars" aria-hidden="true"></div>
+  <canvas id="string-canvas" class="string-canvas" aria-hidden="true"></canvas>
   <header class="site-header">
     <a class="logo" href="#top">jerinjose</a>
     <nav aria-label="Primary">
@@ -21,22 +22,28 @@
     </nav>
   </header>
   <main id="top">
-    <section class="hero">
-      <p class="eyebrow">jerinjose.com · Omniverse</p>
-      <h1>Jerin Jose</h1>
-      <p class="motto">Accelerating Omniverse Expansion and Exploration.</p>
-      <p class="lede">Building toward a Type&nbsp;7 civilization — unified model: <strong>AIXI</strong>.</p>
+    <section class="hero" id="hero" data-string-hero>
+      <div class="hero-stage">
+        <canvas id="hero-canvas" class="hero-canvas" width="960" height="540" aria-hidden="true"></canvas>
+        <div class="hero-copy" id="hero-copy">
+          <p class="eyebrow">jerinjose.com · Omniverse</p>
+          <h1 class="string-title" data-string-text="Jerin Jose">Jerin Jose</h1>
+          <p class="motto">Accelerating Omniverse Expansion and Exploration.</p>
+          <p class="lede">Building toward a Type&nbsp;7 civilization — unified model: <strong>AIXI</strong>.</p>
+          <p class="scroll-hint" id="scroll-hint">Scroll to dissolve</p>
+        </div>
+      </div>
     </section>
-    <section id="mission" class="panel">
-      <h2>Mission</h2>
+    <section id="mission" class="panel" data-string-title>
+      <h2 class="string-title" data-string-text="Mission">Mission</h2>
       <p>Parent company <strong>Omniverse</strong>. Unified model <strong>AIXI</strong>.</p>
     </section>
-    <section id="infrastructure" class="panel">
-      <h2>Infrastructure</h2>
+    <section id="infrastructure" class="panel" data-string-title>
+      <h2 class="string-title" data-string-text="Infrastructure">Infrastructure</h2>
       <p class="section-lede">Omniverse map from <a href="https://x.com/xjerinjose" target="_blank" rel="noopener noreferrer">@xjerinjose</a>. Full megastructures catalog restoring momentarily.</p>
     </section>
-    <section id="roadmap" class="panel">
-      <h2>Roadmap</h2>
+    <section id="roadmap" class="panel" data-string-title>
+      <h2 class="string-title" data-string-text="Roadmap">Roadmap</h2>
       <ol class="timeline">
         <li><img class="t-img" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80" alt="Earth from space — planetary civilization" width="640" height="360" loading="lazy"><div class="t-body"><span class="t-label">Type 1</span><h3>Planetary</h3></div></li>
         <li><img class="t-img" src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80" alt="Nebula and stars — stellar scale" width="640" height="360" loading="lazy"><div class="t-body"><span class="t-label">Type 2</span><h3>Stellar</h3></div></li>
@@ -48,13 +55,13 @@
       </ol>
     </section>
 
-    <section id="previews" class="panel">
-      <h2>Previews</h2>
+    <section id="previews" class="panel" data-string-title>
+      <h2 class="string-title" data-string-text="Previews">Previews</h2>
       <p class="section-lede">String-theory field sketches — Omniverse visual studies.</p>
       <div class="preview-grid">
         <figure class="preview-card">
           <img class="t-img" src="images/previews/string-theory-bw.svg" alt="Black and white string theory preview" width="640" height="280" loading="lazy">
-          <figcaption>Black &amp; white</figcaption>
+          <figcaption>Black & white</figcaption>
         </figure>
         <figure class="preview-card">
           <img class="t-img" src="images/previews/string-theory-color.svg" alt="Colorful string theory preview" width="640" height="280" loading="lazy">
@@ -62,8 +69,8 @@
         </figure>
       </div>
     </section>
-    <section id="contact" class="panel">
-      <h2>Contact</h2>
+    <section id="contact" class="panel" data-string-title>
+      <h2 class="string-title" data-string-text="Contact">Contact</h2>
       <p class="section-lede">Omniverse · jerinjose.com · Kochi, Kerala, India</p>
       <ul class="contact-list">
         <li><span class="contact-label">Personal</span><a href="mailto:personal@jerinjose.com">personal@jerinjose.com</a></li>
