@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420">
+<defs>
+  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5b9dff"/><stop offset="50%" stop-color="#c084fc"/><stop offset="100%" stop-color="#34d399"/></linearGradient>
+  <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#60a5fa"/></linearGradient>
+</defs>
+<rect width="960" height="420" fill="#05070b"/>
+<g fill="none" stroke-width="2.2" opacity="0.95">
+  <path d="M40 210 C120 40, 200 380, 280 210 S440 40, 520 210 S680 380, 760 210 S900 40, 920 210" stroke="url(#g1)"/>
+  <path d="M40 210 C140 380, 220 40, 300 210 S460 380, 540 210 S700 40, 780 210 S900 380, 920 210" stroke="url(#g2)"/>
+  <path d="M40 150 C200 60, 320 300, 480 150 S700 60, 920 150" stroke="#fbbf24" stroke-width="1.4" opacity="0.8"/>
+  <path d="M40 270 C200 360, 320 120, 480 270 S700 360, 920 270" stroke="#22d3ee" stroke-width="1.4" opacity="0.8"/>
+</g>
+<g fill="#fff">
+  <circle cx="280" cy="210" r="4"/><circle cx="520" cy="210" r="4"/><circle cx="760" cy="210" r="4"/>
+</g>
+<text x="40" y="390" fill="#a5b4fc" font-family="system-ui" font-size="14">STRING THEORY · COLOR PREVIEW</text>
+</svg>

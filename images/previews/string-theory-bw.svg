@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420">
+<rect width="960" height="420" fill="#05070b"/>
+<g fill="none" stroke="#ccc" stroke-width="1.2" opacity="0.9">
+  <path d="M40 210 C120 40, 200 380, 280 210 S440 40, 520 210 S680 380, 760 210 S900 40, 920 210"/>
+  <path d="M40 210 C140 380, 220 40, 300 210 S460 380, 540 210 S700 40, 780 210 S900 380, 920 210"/>
+  <path d="M40 160 C180 80, 260 300, 400 160 S600 80, 740 160 S880 300, 920 160"/>
+  <path d="M40 260 C180 340, 260 120, 400 260 S600 340, 740 260 S880 120, 920 260"/>
+</g>
+<g fill="#fff">
+  <circle cx="280" cy="210" r="3"/><circle cx="520" cy="210" r="3"/><circle cx="760" cy="210" r="3"/>
+</g>
+<text x="40" y="390" fill="#777" font-family="system-ui" font-size="14">STRING THEORY · BLACK &amp; WHITE PREVIEW</text>
+</svg>
