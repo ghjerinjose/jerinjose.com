@@ -84,3 +84,5 @@ h1 { margin: 0 0 0.85rem; font-size: clamp(2.5rem, 7vw, 3.75rem); line-height: 1
   .t-img { min-height: 9rem; }
   .preview-grid { grid-template-columns: 1fr; }
 }
+
+.contact-pending { color: rgba(255, 255, 255, 0.4); font-style: italic; }
