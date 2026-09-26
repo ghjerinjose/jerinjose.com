@@ -245,3 +245,32 @@ a.is-longpress { outline: 1px solid rgba(91,157,255,0.5); outline-offset: 2px; }
 .panel-end h2 { font-size: 1.08rem; }
 .panel-end .contact-list { font-size: 0.95em; }
 .panel-end .contact-label { font-size: 0.7rem; }
+
+
+/* Eye-tuned spacing: visible gap Jerin | Jose; even Omniverse tracking */
+.hero-name .w { display: inline-block; }
+.hero-name .gap {
+  display: inline-block;
+  width: 0.28em;
+  min-width: 0.22em;
+}
+.hero-omni .omni-letters {
+  letter-spacing: 0.14em;
+  font-weight: 560;
+}
+.hero-tag {
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.footer-socials {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem 1.1rem;
+  margin: 0 0 0.9rem; font-size: 0.82rem; letter-spacing: 0.06em;
+}
+.footer-socials a {
+  color: var(--muted); border-bottom: 1px solid transparent;
+}
+.footer-socials a:hover { color: var(--text); border-bottom-color: var(--line); }
+.status-line { margin: 0 0 0.55rem; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.domain-end { margin: 0 0 0.45rem; font-size: 0.95rem; }
+.domain-end a { color: var(--text); border-bottom: 1px solid var(--line); }
+.copy-line { margin: 0; font-size: 0.82rem; color: var(--muted); }
