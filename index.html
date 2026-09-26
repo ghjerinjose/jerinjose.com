@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Jerin Jose — jerinjose.com</title>
-<meta name="description" content="Jerin Jose — accelerating galactic expansion and exploration."/>
+<meta name="description" content="Jerin Jose — Omniverse."/>
 <link rel="canonical" href="https://jerinjose.com/"/>
 <style>
 :root,html[data-theme="dark"]{--bg:#000;--fg:#fff;--muted:#8e8e8e;--line:#1a1a1a;--panel:#0a0a0a;--panel-border:#2a2a2a}
@@ -14,18 +14,16 @@ body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,sa
 a{color:inherit;text-decoration:none}
 #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 28px}
-.topbar{display:flex;justify-content:flex-end;padding:22px 0 8px;border-bottom:1px solid var(--line)}
-nav.top{display:flex;gap:28px;font-size:clamp(16px,2vw,20px);letter-spacing:.16em;text-transform:uppercase;font-weight:500}
+.topbar{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:22px 0 8px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px)}
+nav.top{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:20px;font-size:clamp(14px,2vw,18px);letter-spacing:.16em;text-transform:uppercase;font-weight:500}
 nav.top a{color:var(--muted);padding:8px 4px}
-nav.top a:hover{color:var(--fg)}
+nav.top a:hover,nav.top a[href="#faces"]{color:var(--fg)}
 .hero{min-height:min(78vh,760px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 0 24px}
-.hero-name{margin:0;font-size:clamp(2.2rem,12vw,5.2rem);font-weight:700;letter-spacing:-.03em;line-height:1;white-space:nowrap;transform-origin:center center}
+.hero-name,.hero-omni{font-family:system-ui,-apple-system,sans-serif;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin:0;line-height:1.1}
+.hero-name{font-size:clamp(2.2rem,12vw,5.2rem);white-space:nowrap;transform-origin:center center}
 .hero-name .w{display:inline-block}
-.hero-name .gap{display:inline-block;width:1ch}
-.hero-omni{margin:14px 0 0;font-size:clamp(1.1rem,3.5vw,2rem);font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.motto-block{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:6px}
-.motto-kicker{font-size:11px;letter-spacing:.28em;text-transform:lowercase;color:var(--muted)}
-.motto{margin:0;color:var(--muted);font-size:clamp(1.65rem,4.2vw,2.55rem);font-weight:500;letter-spacing:.05em;line-height:1.25;max-width:94vw;text-align:center}
+.hero-name .gap{display:inline-block;width:0.5ch}
+.hero-omni{margin:14px 0 0;font-size:clamp(1.1rem,3.5vw,2rem)}
 #faces{min-height:100vh;scroll-margin-top:72px;padding:72px 0 80px;max-width:560px;margin:0 auto;border-top:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
 #faces .faces-page-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 #faces .faces-page-title{font-size:clamp(26px,4vw,36px);font-weight:600;margin-bottom:18px;letter-spacing:-.02em}
@@ -38,10 +36,11 @@ nav.top a:hover{color:var(--fg)}
 #faces .phase-arrow{display:none;width:36px;height:36px;flex-shrink:0}
 #faces details[open] .phase-arrow{display:block}
 html{scroll-behavior:smooth}
-.float-btn{position:fixed;z-index:20;width:48px;height:48px;border-radius:50%;background:var(--panel);border:1px solid var(--panel-border);color:var(--fg);cursor:pointer;display:grid;place-items:center;right:24px}
-#btn-theme{bottom:24px}
-#btn-search{top:50%;bottom:auto;right:16px;transform:translateY(-50%)}
-.search-panel{display:none;position:fixed;z-index:30;top:50%;right:16px;bottom:auto;transform:translateY(calc(-50% - 56px));width:min(280px,calc(100vw - 48px));background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:12px}
+.float-btn{position:fixed;z-index:20;width:40px;height:40px;border-radius:50%;background:var(--panel);border:1px solid var(--panel-border);color:var(--fg);cursor:pointer;display:grid;place-items:center;right:16px;padding:0}
+#btn-theme{bottom:24px;width:48px;height:48px}
+#btn-search{top:50%;bottom:auto;right:16px;transform:translateY(-50%);width:36px;height:36px}
+#btn-search svg{width:16px;height:16px;display:block}
+.search-panel{display:none;position:fixed;z-index:30;top:50%;right:16px;bottom:auto;transform:translateY(calc(-50% - 48px));width:min(280px,calc(100vw - 48px));background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:12px}
 .search-panel.open{display:block}
 .search-panel input{width:100%;background:transparent;border:1px solid var(--line);border-radius:8px;padding:10px;color:var(--fg)}
 footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;letter-spacing:.2em}
@@ -54,7 +53,7 @@ footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;l
     <nav class="top" aria-label="Primary">
       <a href="#hero">Mission</a>
       <a href="#hero">Build</a>
-      <a href="#faces" style="color:var(--fg)">Faces</a>
+      <a href="#faces">Faces</a>
       <a href="#hero">Contact</a>
     </nav>
   </div>
@@ -62,10 +61,6 @@ footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;l
     <section class="hero" id="hero">
       <h1 class="hero-name" id="hero-name"><span class="w">Jerin</span><span class="gap" aria-hidden="true"> </span><span class="w">Jose</span></h1>
       <p class="hero-omni">Omniverse</p>
-      <div class="motto-block">
-        <div class="motto-kicker">motto</div>
-        <p id="motto" class="motto" data-role="motto">accelerating galactic expansion and exploration</p>
-      </div>
     </section>
     <section id="faces" aria-label="Faces page">
       <div class="faces-page-label">02 · Faces</div>
@@ -84,7 +79,9 @@ footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;l
   </main>
   <footer>jerinjose.com · Private</footer>
 </div>
-<button type="button" class="float-btn" id="btn-search" aria-label="Search">⌕</button>
+<button type="button" class="float-btn" id="btn-search" aria-label="Search" title="Long-press to search">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5 L21 21"/></svg>
+</button>
 <button type="button" class="float-btn" id="btn-theme" aria-label="Theme">☀</button>
 <div class="search-panel" id="search-panel"><input type="search" placeholder="Search" id="search-input"/></div>
 <script>
@@ -94,19 +91,60 @@ footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;l
     if(!name)return;
     name.style.transform='scale(1)';
     const gap=name.querySelector('.gap');
-    const w=name.querySelector('.w');
-    if(gap&&w){const lw=w.getBoundingClientRect().width; if(lw>0) gap.style.width=lw+'px';}
+    if(gap){
+      const probe=document.createElement('span');
+      probe.textContent='M';
+      probe.style.cssText='position:absolute;visibility:hidden;font:inherit;letter-spacing:inherit';
+      name.appendChild(probe);
+      const ch=probe.getBoundingClientRect().width||16;
+      probe.remove();
+      gap.style.width=(ch*0.5)+'px';
+    }
     const max=Math.min(window.innerWidth*0.94,1100);
     const need=name.scrollWidth;
     if(need>max&&need>0) name.style.transform='scale('+(max/need)+')';
   }
   fit(); window.addEventListener('resize',fit);
-  document.getElementById('btn-theme').onclick=()=>{
+
+  const themeBtn=document.getElementById('btn-theme');
+  themeBtn.addEventListener('click',function(){
     const h=document.documentElement;
-    h.setAttribute('data-theme', h.getAttribute('data-theme')==='light'?'dark':'light');
-  };
+    const next=h.getAttribute('data-theme')==='light'?'dark':'light';
+    h.setAttribute('data-theme',next);
+  });
+
   const sp=document.getElementById('search-panel');
-  document.getElementById('btn-search').onclick=()=>sp.classList.toggle('open');
+  const searchBtn=document.getElementById('btn-search');
+  let pressTimer=null, longFired=false;
+  function openSearch(){
+    sp.classList.add('open');
+    const inp=document.getElementById('search-input');
+    if(inp) setTimeout(function(){inp.focus();},50);
+  }
+  function clearPress(){ if(pressTimer){clearTimeout(pressTimer);pressTimer=null;} }
+  searchBtn.addEventListener('pointerdown',function(e){
+    longFired=false;
+    clearPress();
+    pressTimer=setTimeout(function(){ longFired=true; openSearch(); },450);
+  });
+  searchBtn.addEventListener('pointerup',function(){ clearPress(); });
+  searchBtn.addEventListener('pointerleave',function(){ clearPress(); });
+  searchBtn.addEventListener('pointercancel',function(){ clearPress(); });
+  searchBtn.addEventListener('click',function(e){
+    if(longFired){ e.preventDefault(); longFired=false; return; }
+  });
+  searchBtn.addEventListener('contextmenu',function(e){ e.preventDefault(); });
+
+  function goFaces(){
+    const d=document.getElementById('faces-details');
+    if(d) d.open=true;
+  }
+  if(location.hash==='#faces') goFaces();
+  window.addEventListener('hashchange',function(){ if(location.hash==='#faces') goFaces(); });
+  document.querySelectorAll('a[href="#faces"]').forEach(function(a){
+    a.addEventListener('click',function(){ setTimeout(goFaces,0); });
+  });
+
   const c=document.getElementById('bg'); const ctx=c.getContext('2d');
   let W,H,nodes=[],arcs=[];
   function resize(){W=c.width=innerWidth;H=c.height=innerHeight; build();}
@@ -124,8 +162,7 @@ footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;l
     }
     for(let i=0;i<nodes.length;i++) for(let j=i+1;j<nodes.length;j++){
       const dx=nodes[i].ox-nodes[j].ox, dy=nodes[i].oy-nodes[j].oy;
-      const d=Math.hypot(dx,dy);
-      if(d<70) arcs.push([i,j]);
+      if(Math.hypot(dx,dy)<70) arcs.push([i,j]);
     }
   }
   function frame(t){
