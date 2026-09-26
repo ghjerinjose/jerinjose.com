@@ -1,5 +1,242 @@
 document.getElementById("year").textContent = String(new Date().getFullYear());
 
+
+/* Scale "Jerin Jose" to fit the first-page stage width */
+(function fitHeroTitle() {
+  const wrap = document.getElementById("title-fit");
+  const name = document.getElementById("hero-name");
+  if (!wrap || !name) return;
+  function fit() {
+    name.style.transform = "scale(1)";
+    const avail = wrap.clientWidth;
+    const need = name.scrollWidth;
+    if (need <= 1 || avail <= 1) return;
+    const s = Math.min(1, avail / need);
+    name.style.transform = "scale(" + s + ")";
+  }
+  fit();
+  window.addEventListener("resize", fit, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+
+
+
+/* Geometry node background — Omniverse mockup pattern */
+(function geoBackground() {
+  const canvas = document.getElementById("geo-bg");
+  if (!canvas) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ctx = canvas.getContext("2d", { alpha: true });
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0, nodes = [], edges = [], t0 = performance.now();
+
+  function build() {
+    nodes = []; edges = [];
+    const cx = W * 0.28, cy = H * 0.26;
+    const rays = reduce ? 8 : 14;
+    const rings = reduce ? 4 : 7;
+    for (let side = -1; side <= 1; side += 2) {
+      for (let r = 0; r < rays; r++) {
+        const base = side * (Math.PI * 0.12) + (r / Math.max(1, rays - 1) - 0.5) * Math.PI * 0.55;
+        for (let k = 1; k <= rings; k++) {
+          const dist = (k / rings) * Math.min(W, H) * 0.36;
+          nodes.push({
+            ox: cx + Math.cos(base) * dist,
+            oy: cy + Math.sin(base) * dist * 0.72,
+            x: 0, y: 0,
+            phase: (r * 0.4 + k * 0.2) * side,
+            rad: 1 + (k === rings ? 0.5 : 0),
+            side: side, ray: r, ring: k
+          });
+        }
+      }
+    }
+    for (let i = 0; i < 6; i++) {
+      nodes.push({ ox: cx, oy: cy + (i - 2.5) * 9, x: 0, y: 0, phase: i, rad: 1.3, side: 0, ray: -1, ring: 0 });
+    }
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const sameRay = a.side === b.side && a.ray === b.ray && Math.abs(a.ring - b.ring) === 1;
+        const sameRing = a.side === b.side && a.ring === b.ring && Math.abs(a.ray - b.ray) === 1;
+        const seam = a.side !== b.side && a.ring === b.ring && a.ring <= 2 && Math.abs(a.ray - b.ray) <= 1;
+        if (sameRay || sameRing || seam) edges.push([i, j]);
+      }
+    }
+  }
+
+  function resize() {
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    build();
+  }
+
+  function frame(now) {
+    const t = (now - t0) / 1000;
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(function (n) {
+      n.x = n.ox + Math.sin(t * 0.35 + n.phase) * 2.2;
+      n.y = n.oy + Math.cos(t * 0.28 + n.phase * 1.2) * 1.6;
+    });
+    ctx.lineWidth = 0.85;
+    edges.forEach(function (e) {
+      const a = nodes[e[0]], b = nodes[e[1]];
+      const pulse = 0.16 + 0.07 * Math.sin(t * 0.7 + a.phase);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = "rgba(200,210,230," + pulse + ")";
+      ctx.stroke();
+    });
+    nodes.forEach(function (n) {
+      const tw = 0.38 + 0.18 * Math.sin(t * 1.1 + n.phase);
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.rad, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(230,235,245," + tw + ")";
+      ctx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
+  requestAnimationFrame(frame);
+})();
+
+/* Long-press gate: regular tap does nothing; long-press activates */
+(function longPressGate() {
+  const HOLD = 520;
+  let timer = null, target = null, ready = false;
+
+  function interactiveFrom(el) {
+    return el && el.closest ? el.closest("a, button, .search-fab, [role='button']") : null;
+  }
+
+  function clear() {
+    if (timer) clearTimeout(timer);
+    timer = null;
+  }
+
+  document.addEventListener("pointerdown", function (e) {
+    const el = interactiveFrom(e.target);
+    if (!el) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    ready = false;
+    target = el;
+    clear();
+    timer = setTimeout(function () {
+      ready = true;
+      if (target) target.classList.add("is-longpress");
+      try { if (navigator.vibrate) navigator.vibrate(10); } catch (_) {}
+    }, HOLD);
+  }, true);
+
+  function finish(e) {
+    if (!target) return;
+    const el = target;
+    const ok = ready;
+    clear();
+    el.classList.remove("is-longpress");
+    target = null;
+    ready = false;
+    if (!ok) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (el.id === "search-fab" || el.classList.contains("search-fab")) {
+      openSearchPop();
+      return;
+    }
+    if (el.id === "search-close") {
+      closeSearchPop();
+      return;
+    }
+    if (el.id === "search-go" || (el.tagName === "BUTTON" && el.type === "submit")) {
+      const form = document.getElementById("search-form");
+      if (form) form.requestSubmit();
+      return;
+    }
+    if (el.tagName === "A") {
+      const href = el.getAttribute("href");
+      if (!href) return;
+      if (href.charAt(0) === "#") {
+        const dest = document.getElementById(href.slice(1));
+        if (dest) dest.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+      if (el.target === "_blank") {
+        window.open(href, "_blank", "noopener,noreferrer");
+      } else {
+        window.location.href = href;
+      }
+    }
+  }
+
+  document.addEventListener("pointerup", finish, true);
+  document.addEventListener("pointercancel", function () {
+    clear();
+    if (target) target.classList.remove("is-longpress");
+    target = null; ready = false;
+  }, true);
+  document.addEventListener("pointerleave", function (e) {
+    if (target && e.target === target) {
+      clear();
+      target.classList.remove("is-longpress");
+      target = null; ready = false;
+    }
+  }, true);
+
+  document.addEventListener("click", function (e) {
+    if (!interactiveFrom(e.target)) return;
+    e.preventDefault();
+    e.stopPropagation();
+  }, true);
+})();
+
+function openSearchPop() {
+  const pop = document.getElementById("search-pop");
+  const input = document.getElementById("search-input");
+  if (!pop) return;
+  pop.hidden = false;
+  if (input) setTimeout(function () { input.focus(); }, 30);
+}
+function closeSearchPop() {
+  const pop = document.getElementById("search-pop");
+  if (pop) pop.hidden = true;
+}
+(function searchPopWire() {
+  const form = document.getElementById("search-form");
+  const closeBtn = document.getElementById("search-close");
+  const pop = document.getElementById("search-pop");
+  if (closeBtn) closeBtn.addEventListener("click", function (e) { e.preventDefault(); });
+  if (pop) pop.addEventListener("pointerdown", function (e) {
+    if (e.target === pop) closeSearchPop();
+  });
+  if (form) form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const q = (document.getElementById("search-input") || {}).value || "";
+    const needle = q.trim().toLowerCase();
+    closeSearchPop();
+    if (!needle) return;
+    const panels = document.querySelectorAll("main section, main h1, main h2, main p, main li");
+    for (let i = 0; i < panels.length; i++) {
+      const el = panels[i];
+      if ((el.textContent || "").toLowerCase().indexOf(needle) !== -1) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        break;
+      }
+    }
+  });
+})();
+
+
 (function stringTheoryScroll() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hero = document.getElementById("hero");
@@ -18,7 +255,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
   const ctx = canvas.getContext("2d", { alpha: true });
   const octx = overlayCanvas ? overlayCanvas.getContext("2d", { alpha: true }) : null;
   const DPR = Math.min(window.devicePixelRatio || 1, 2);
-  const COUNT = 520;
+  const COUNT = 180;
 
   let W = 0, H = 0;
   let particles = [];
@@ -182,10 +419,10 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
       y = p.my + Math.sin(p.phase * 1.3 + now * 0.0012) * (5 + u * 14);
       ang = p.phase + now * 0.002 + u;
       len = 11 + p.w * 5;
-      alpha = 0.4 + Math.random() * 0.2;
+      alpha = 0.42 + 0.08 * Math.sin(now * 0.002 + p.phase);
     } else {
       const u = smoothstep((t - 0.52) / 0.48);
-      const spin = now * 0.00055 * (0.55 + p.ring * 0.12);
+      const spin = now * 0.00038 * (0.55 + p.ring * 0.12);
       const targetX = W * 0.5 + Math.cos(p.a + spin) * (Math.min(W, H) * 0.34) * (0.42 + p.ring * 0.12);
       const targetY = H * 0.46 + Math.sin(p.a + spin) * (Math.min(W, H) * 0.34) * (0.42 + p.ring * 0.12) * (0.38 + (p.ring % 2) * 0.08);
       x = lerp(p.mx, targetX, u);
@@ -203,7 +440,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
 
     // ambient field always
     ctx.globalAlpha = 0.18 + progress * 0.12;
-    for (let i = 0; i < 36; i++) {
+    for (let i = 0; i < 24; i++) {
       const x = (Math.sin(now * 0.00025 + i * 1.7) * 0.5 + 0.5) * W;
       const y = (Math.cos(now * 0.0002 + i * 2.1) * 0.5 + 0.5) * H;
       drawFilament(x, y, i * 0.7 + now * 0.0004, 8 + (i % 5), 0.7, 0.35);
@@ -276,9 +513,9 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
 
     // fade HTML copy with scroll (canvas owns the dissolve)
     if (copy) {
-      const hide = Math.min(1, progress / 0.18);
+      const hide = Math.min(1, progress / 0.22);
       copy.style.opacity = String(1 - hide);
-      copy.style.transform = "translateY(" + (hide * 14) + "px)";
+      copy.style.transform = "translateY(" + (hide * 10) + "px)";
       copy.style.pointerEvents = hide > 0.85 ? "none" : "auto";
     }
     if (hint) hint.style.opacity = String(Math.max(0, 1 - progress * 6));
