@@ -255,7 +255,7 @@ function closeSearchPop() {
   const ctx = canvas.getContext("2d", { alpha: true });
   const octx = overlayCanvas ? overlayCanvas.getContext("2d", { alpha: true }) : null;
   const DPR = Math.min(window.devicePixelRatio || 1, 2);
-  const COUNT = 180;
+  const COUNT = 140;
 
   let W = 0, H = 0;
   let particles = [];
