@@ -1,87 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jerin Jose — jerinjose.com</title>
-  <meta name="description" content="Jerin Jose — accelerating galactic expansion and exploration. Toward a Type 7 civilization. jerinjose.com">
-  <meta name="theme-color" content="#05070b">
-  <link rel="canonical" href="https://jerinjose.com/">
-  <style>
-    :root { --bg:#05070b; --text:#eef2f7; --muted:#8b95a5; --accent:#5b9dff; --accent-2:#c4d4ff; --line:rgba(255,255,255,0.08); --font:system-ui,-apple-system,sans-serif; }
-    * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; font-family:var(--font); color:var(--text); background:var(--bg); line-height:1.55; }
-    .site-header { position:sticky; top:0; z-index:10; display:flex; justify-content:space-between; gap:1rem; padding:1rem 1.25rem; backdrop-filter:blur(16px); background:rgba(5,7,11,0.78); border-bottom:1px solid var(--line); }
-    .logo { font-weight:650; letter-spacing:0.04em; text-transform:lowercase; color:inherit; text-decoration:none; }
-    nav { display:flex; flex-wrap:wrap; gap:1rem 1.25rem; font-size:0.92rem; color:var(--muted); }
-    nav a { color:inherit; text-decoration:none; }
-    main { width:min(100% - 2.5rem, 820px); margin:0 auto; padding:2.5rem 0 4.5rem; }
-    .hero { min-height:min(88vh,720px); display:flex; align-items:center; }
-    .hero-stage { width:100%; min-height:min(72vh,560px); border:1px solid var(--line); border-radius:20px; background:rgba(5,7,11,0.72); padding:clamp(1.5rem,4vw,3rem); }
-    .hero-name { margin:0 0 0.55rem; font-size:clamp(2.4rem,14vw,5.5rem); letter-spacing:-0.035em; line-height:1; white-space:nowrap; }
-    .hero-name .w { display:inline-block; }
-    .hero-name .gap { display:inline-block; width:0.45em; min-width:0.38em; }
-    .hero-omni { margin:0 0 0.55rem; color:var(--accent-2); font-size:clamp(1rem,3.2vw,1.55rem); font-weight:600; letter-spacing:0.06em; }
-    .motto, .hero-tag { margin:0 0 1.1rem; color:var(--muted); font-size:clamp(1.65rem,4.2vw,2.55rem); font-weight:560; letter-spacing:0.05em; line-height:1.3; max-width:42rem; }
-    .lede { margin:0; max-width:36rem; color:var(--muted); font-size:1.05rem; }
-    .lede strong { color:var(--text); }
-    .panel { padding:1.45rem 1.35rem; margin-bottom:1.15rem; border:1px solid var(--line); border-radius:16px; background:rgba(12,16,24,0.88); }
-    .panel h2 { margin:0 0 0.7rem; font-size:1.22rem; }
-    .contact-list { list-style:none; margin:1.25rem 0 0; padding:0; display:grid; gap:0.75rem; }
-    .contact-list li { display:grid; grid-template-columns:7.5rem 1fr; gap:0.75rem 1rem; padding:0.65rem 0; border-bottom:1px solid rgba(255,255,255,0.12); }
-    .contact-label { font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
-    .contact-list a { color:#f2f2f2; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.25); }
-    .site-footer { border-top:1px solid var(--line); padding:1.4rem 1.25rem 2.4rem; text-align:center; color:var(--muted); font-size:0.9rem; }
-    .status-line { margin:0 0 0.55rem; color:var(--muted); font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; }
-    .footer-socials { display:flex; flex-wrap:wrap; justify-content:center; gap:0.85rem 1.1rem; margin:0 0 0.9rem; font-size:0.82rem; }
-    .footer-socials a { color:var(--muted); text-decoration:none; }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Jerin Jose — jerinjose.com</title>
+<meta name="description" content="Jerin Jose — accelerating galactic expansion and exploration."/>
+<link rel="canonical" href="https://jerinjose.com/"/>
+<style>
+:root,html[data-theme="dark"]{--bg:#000;--fg:#fff;--muted:#8e8e8e;--line:#1a1a1a;--panel:#0a0a0a;--panel-border:#2a2a2a}
+html[data-theme="light"]{--bg:#f4f4f2;--fg:#0a0a0a;--muted:#666;--line:#ddd;--panel:#fff;--panel-border:#ccc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,sans-serif;overflow-x:hidden;min-height:100vh}
+a{color:inherit;text-decoration:none}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.geom-underlay{position:fixed;z-index:0;left:2%;top:4%;width:min(640px,58vw);opacity:.4;mix-blend-mode:screen;pointer-events:none}
+html[data-theme="light"] .geom-underlay{opacity:.28;mix-blend-mode:multiply;filter:invert(1)}
+.wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 28px}
+.topbar{display:flex;justify-content:flex-end;padding:22px 0 8px;border-bottom:1px solid var(--line)}
+nav.top{display:flex;gap:28px;font-size:clamp(16px,2vw,20px);letter-spacing:.16em;text-transform:uppercase;font-weight:500}
+nav.top a{color:var(--muted);padding:8px 4px}
+nav.top a:hover{color:var(--fg)}
+.hero{min-height:min(78vh,760px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 0 24px}
+.hero-name{margin:0;font-size:clamp(2.2rem,12vw,5.2rem);font-weight:700;letter-spacing:-.03em;line-height:1;white-space:nowrap;transform-origin:center center}
+.hero-name .w{display:inline-block}
+.hero-name .gap{display:inline-block;width:1ch}
+.hero-omni{margin:14px 0 0;font-size:clamp(1.1rem,3.5vw,2rem);font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.motto-block{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.motto-kicker{font-size:11px;letter-spacing:.28em;text-transform:lowercase;color:var(--muted)}
+.motto{margin:0;color:var(--muted);font-size:clamp(1.65rem,4.2vw,2.55rem);font-weight:500;letter-spacing:.05em;line-height:1.25;max-width:94vw;text-align:center}
+#faces{padding:16px 0 40px;max-width:480px;margin:0 auto;border-top:1px solid var(--line)}
+#faces summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;border:1px solid var(--line);border-radius:12px;font-size:14px}
+#faces summary::-webkit-details-marker{display:none}
+#faces .faces-body{padding:12px 4px 0}
+#faces .phase-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px}
+#faces .phase-pointer{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:6px 12px;border:1px solid var(--fg);border-radius:999px}
+#faces .phase-note{color:var(--muted);font-size:13px}
+#faces .phase-arrow{display:none;width:36px;height:36px}
+#faces details[open] .phase-arrow{display:block}
+.float-btn{position:fixed;z-index:20;width:48px;height:48px;border-radius:50%;background:var(--panel);border:1px solid var(--panel-border);color:var(--fg);cursor:pointer;display:grid;place-items:center;right:24px}
+#btn-theme{bottom:24px}#btn-search{bottom:80px}
+.search-panel{display:none;position:fixed;z-index:30;right:24px;bottom:140px;width:min(300px,calc(100vw - 48px));background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:12px}
+.search-panel.open{display:block}
+.search-panel input{width:100%;background:transparent;border:1px solid var(--line);border-radius:8px;padding:10px;color:var(--fg)}
+footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;letter-spacing:.2em}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="logo" href="#top">jerinjose</a>
-    <nav aria-label="Primary">
-      <a href="#mission">Mission</a>
-      <a href="#infrastructure">Infrastructure</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#contact">Contact</a>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="wrap">
+  <div class="topbar">
+    <nav class="top" aria-label="Primary">
+      <a href="#hero">Mission</a>
+      <a href="#hero">Build</a>
+      <a href="#faces">Faces</a>
+      <a href="#hero">Contact</a>
     </nav>
-  </header>
-  <main id="top">
+  </div>
+  <main>
     <section class="hero" id="hero">
-      <div class="hero-stage">
-        <h1 class="hero-name" id="hero-name" data-string-text="Jerin Jose"><span class="w">Jerin</span><span class="gap" aria-hidden="true"> </span><span class="w">Jose</span></h1>
-        <p class="hero-omni" id="hero-omni">Omniverse</p>
-        <p id="motto" class="motto hero-tag" data-role="motto">accelerating galactic expansion and exploration</p>
-        <p class="lede">Building toward a Type&nbsp;7 civilization — model: <strong>AIXI</strong>.</p>
+      <h1 class="hero-name" id="hero-name"><span class="w">Jerin</span><span class="gap" aria-hidden="true"> </span><span class="w">Jose</span></h1>
+      <p class="hero-omni">Omniverse</p>
+      <div class="motto-block">
+        <div class="motto-kicker">motto</div>
+        <p id="motto" class="motto" data-role="motto">accelerating galactic expansion and exploration</p>
       </div>
     </section>
-    <section id="mission" class="panel"><h2>Mission</h2><p>Parent company <strong>Omniverse</strong>. Unified model <strong>AIXI</strong>.</p></section>
-    <section id="infrastructure" class="panel"><h2>Infrastructure</h2><p>Omniverse map from <a href="https://x.com/xjerinjose">@xjerinjose</a>.</p></section>
-    <section id="roadmap" class="panel"><h2>Roadmap</h2><p>Types 1 through 7 — planetary to beyond.</p></section>
-    <section id="contact" class="panel">
-      <h2>Contact</h2>
-      <ul class="contact-list">
-        <li><span class="contact-label">Personal</span><a href="mailto:personal@jerinjose.com">personal@jerinjose.com</a></li>
-        <li><span class="contact-label">Admin</span><a href="mailto:admin@jerinjose.com">admin@jerinjose.com</a></li>
-        <li><span class="contact-label">Work</span><a href="mailto:work@jerinjose.com">work@jerinjose.com</a></li>
-        <li><span class="contact-label">X</span><a href="https://x.com/xjerinjose">@xjerinjose</a></li>
-        <li><span class="contact-label">Instagram</span><a href="https://instagram.com/igjerinjose">@igjerinjose</a></li>
-        <li><span class="contact-label">Telegram</span><a href="https://t.me/tgjerinjose">tgjerinjose</a></li>
-        <li><span class="contact-label">Phone</span><a href="tel:+919995512422">+91 9995512422</a></li>
-        <li><span class="contact-label">Location</span><span>Kochi, Kerala, India</span></li>
-      </ul>
+    <section id="faces">
+      <details id="faces-details">
+        <summary><span>Faces</span><span style="color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase">Status</span></summary>
+        <div class="faces-body">
+          <div class="phase-row">
+            <svg class="phase-arrow" viewBox="0 0 36 36" aria-hidden="true"><path d="M4 18 H22" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 10 L26 18 L16 26" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="18" r="3" fill="currentColor"/></svg>
+            <span class="phase-pointer">Phase 26</span>
+            <span class="phase-note">Current status</span>
+          </div>
+        </div>
+      </details>
     </section>
   </main>
-  <footer class="site-footer">
-    <p class="status-line">Private</p>
-    <div class="footer-socials">
-      <a href="https://x.com/xjerinjose">X</a>
-      <a href="https://instagram.com/igjerinjose">IG</a>
-      <a href="https://t.me/tgjerinjose">TG</a>
-    </div>
-    <p>© <span id="year"></span> Jerin Jose · <a href="https://jerinjose.com/" style="color:inherit">jerinjose.com</a></p>
-  </footer>
-  <script>document.getElementById("year").textContent=String(new Date().getFullYear());</script>
+  <footer>jerinjose.com · Private</footer>
+</div>
+<button type="button" class="float-btn" id="btn-search" aria-label="Search">⌕</button>
+<button type="button" class="float-btn" id="btn-theme" aria-label="Theme">☀</button>
+<div class="search-panel" id="search-panel"><input type="search" placeholder="Search" id="search-input"/></div>
+<script>
+(function(){
+  const name=document.getElementById('hero-name');
+  function fit(){
+    if(!name)return;
+    name.style.transform='scale(1)';
+    const gap=name.querySelector('.gap');
+    const w=name.querySelector('.w');
+    if(gap&&w){const lw=w.getBoundingClientRect().width; if(lw>0) gap.style.width=lw+'px';}
+    const max=Math.min(window.innerWidth*0.94,1100);
+    const need=name.scrollWidth;
+    if(need>max&&need>0) name.style.transform='scale('+(max/need)+')';
+  }
+  fit(); window.addEventListener('resize',fit);
+  document.getElementById('btn-theme').onclick=()=>{
+    const h=document.documentElement;
+    h.setAttribute('data-theme', h.getAttribute('data-theme')==='light'?'dark':'light');
+  };
+  const sp=document.getElementById('search-panel');
+  document.getElementById('btn-search').onclick=()=>sp.classList.toggle('open');
+  const c=document.getElementById('bg'); const ctx=c.getContext('2d');
+  let W,H,nodes=[],arcs=[];
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight; build();}
+  function build(){
+    nodes=[]; arcs=[];
+    const cx=W*0.5, cy=H*0.38;
+    for(let side=-1;side<=1;side+=2){
+      for(let r=1;r<=5;r++){
+        for(let k=0;k<8;k++){
+          const a=(k/8)*Math.PI*0.85 - Math.PI*0.425;
+          const rad=40+r*28;
+          nodes.push({ox:cx+side*rad*Math.cos(a)*1.15, oy:cy+rad*Math.sin(a)*0.75, phase:r*0.4+k*0.2+side, rad:1.2});
+        }
+      }
+    }
+    for(let i=0;i<nodes.length;i++) for(let j=i+1;j<nodes.length;j++){
+      const dx=nodes[i].ox-nodes[j].ox, dy=nodes[i].oy-nodes[j].oy;
+      const d=Math.hypot(dx,dy);
+      if(d<70) arcs.push([i,j]);
+    }
+  }
+  function frame(t){
+    t*=0.001; ctx.clearRect(0,0,W,H);
+    const light=document.documentElement.getAttribute('data-theme')==='light';
+    ctx.strokeStyle=light?'rgba(0,0,0,0.18)':'rgba(255,255,255,0.22)';
+    ctx.fillStyle=light?'rgba(0,0,0,0.35)':'rgba(255,255,255,0.55)';
+    ctx.lineWidth=1;
+    nodes.forEach(n=>{n.x=n.ox+Math.sin(t*0.5+n.phase)*2.5; n.y=n.oy+Math.cos(t*0.4+n.phase)*2;});
+    arcs.forEach(([i,j])=>{ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();});
+    nodes.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.rad,0,Math.PI*2);ctx.fill();});
+    requestAnimationFrame(frame);
+  }
+  resize(); addEventListener('resize',resize); requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
