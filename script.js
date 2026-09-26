@@ -150,6 +150,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
   function scrollProgress() {
     const rect = hero.getBoundingClientRect();
     const travel = Math.max(180, hero.offsetHeight * 0.85);
+    // 0 while hero top near viewport top; rises as user scrolls down
     const raw = (-rect.top) / travel;
     return Math.max(0, Math.min(1, raw));
   }
@@ -165,6 +166,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
   }
 
   function particleAt(p, t, now) {
+    // t: 0 name → 0.28 burst → 0.52 filaments → 1 swarm
     let x, y, ang, len, alpha;
     if (t < 0.28) {
       const u = smoothstep(t / 0.28);
@@ -199,6 +201,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
     progress = scrollProgress();
     ctx.clearRect(0, 0, W, H);
 
+    // ambient field always
     ctx.globalAlpha = 0.18 + progress * 0.12;
     for (let i = 0; i < 36; i++) {
       const x = (Math.sin(now * 0.00025 + i * 1.7) * 0.5 + 0.5) * W;
@@ -207,6 +210,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
     }
     ctx.globalAlpha = 1;
 
+    // string web during mid dissolve
     if (progress > 0.2 && progress < 0.7) {
       ctx.strokeStyle = "rgba(200,210,225," + (0.06 + progress * 0.08) + ")";
       ctx.lineWidth = 0.5;
@@ -223,6 +227,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
       }
     }
 
+    // Dyson rings late
     if (progress > 0.55) {
       const u = smoothstep((progress - 0.55) / 0.45);
       const cx = W * 0.5, cy = H * 0.46;
@@ -248,6 +253,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         const q = particleAt(p, progress, now);
+        // brighten early dissolve so letters visibly shatter
         const a = progress < 0.2 ? Math.min(1, q.alpha + 0.25) : q.alpha;
         if (progress > 0.85 && p.kind === "node") {
           ctx.fillStyle = "rgba(255,255,255," + a + ")";
@@ -268,6 +274,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
       ctx.fillText("DYSON SWARM  ·  OMNIVERSE", 22, H - 22);
     }
 
+    // fade HTML copy with scroll (canvas owns the dissolve)
     if (copy) {
       const hide = Math.min(1, progress / 0.18);
       copy.style.opacity = String(1 - hide);
@@ -359,7 +366,7 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
   });
 
   window.addEventListener("resize", resize, { passive: true });
-  window.addEventListener("scroll", function () { }, { passive: true });
+  window.addEventListener("scroll", function () { /* progress read in rAF */ }, { passive: true });
 
   resize();
   raf = requestAnimationFrame(loop);
