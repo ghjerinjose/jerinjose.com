@@ -39,8 +39,9 @@ nav.top a:hover{color:var(--fg)}
 #faces details[open] .phase-arrow{display:block}
 html{scroll-behavior:smooth}
 .float-btn{position:fixed;z-index:20;width:48px;height:48px;border-radius:50%;background:var(--panel);border:1px solid var(--panel-border);color:var(--fg);cursor:pointer;display:grid;place-items:center;right:24px}
-#btn-theme{bottom:24px}#btn-search{bottom:80px}
-.search-panel{display:none;position:fixed;z-index:30;right:24px;bottom:140px;width:min(300px,calc(100vw - 48px));background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:12px}
+#btn-theme{bottom:24px}
+#btn-search{top:50%;bottom:auto;right:16px;transform:translateY(-50%)}
+.search-panel{display:none;position:fixed;z-index:30;top:50%;right:16px;bottom:auto;transform:translateY(calc(-50% - 56px));width:min(280px,calc(100vw - 48px));background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:12px}
 .search-panel.open{display:block}
 .search-panel input{width:100%;background:transparent;border:1px solid var(--line);border-radius:8px;padding:10px;color:var(--fg)}
 footer{padding:24px 0 40px;text-align:center;color:var(--muted);font-size:12px;letter-spacing:.2em}
